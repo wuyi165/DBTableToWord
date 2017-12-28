@@ -5,9 +5,9 @@ import com.think.tools.dbtoword.db.FindTableInterface;
 import com.think.tools.dbtoword.db.QueryTableInfo;
 import com.think.tools.dbtoword.db.impl.MysqlFindTableImpl;
 import com.think.tools.dbtoword.mode.TableFieldInfo;
+import com.think.tools.dbtoword.mode.TablesInfo;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RunMain {
@@ -18,17 +18,13 @@ public class RunMain {
         String user = "coder";
         String pass = "Deloitte12#$";
         try {
-
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection conn = DriverManager.getConnection(url, user, pass);
-            //DatabaseMetaData metadata = conn.getMetaData();
-
             FindTableInterface find = new MysqlFindTableImpl();
             List<TableFieldInfo>  list =   find.findTableField(conn,"user");
             System.out.println(new Gson().toJson(list));
-
-
-
+            List<TablesInfo> list2 =  find.findDBTables(conn,"4thstandard");
+            System.out.println(new Gson().toJson(list2));
         } catch (Exception e) {
             e.printStackTrace();
         }

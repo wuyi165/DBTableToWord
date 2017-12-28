@@ -14,8 +14,27 @@ import java.util.List;
 public class MysqlFindTableImpl implements FindTableInterface {
 
     public List<TablesInfo> findDBTables(Connection conn, String database) {
+    String sql ="select table_name,table_comment \n" +
+            "from information_schema.tables \n" +
+            "where table_schema='"+database+"'";
+        List<TablesInfo>  list = new LinkedList<TablesInfo>();
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            while(rs.next()){
+                TablesInfo info = new TablesInfo();
+                info.name = rs.getString("table_name");
+                info.comment = rs.getString("table_comment");
 
-        return null;
+                list.add(info);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+
     }
 
     public List<TableFieldInfo> findTableField(Connection conn, String table) {
