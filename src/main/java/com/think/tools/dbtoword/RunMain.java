@@ -2,7 +2,6 @@ package com.think.tools.dbtoword;
 
 import com.google.gson.Gson;
 import com.think.tools.dbtoword.db.FindTableInterface;
-import com.think.tools.dbtoword.db.QueryTableInfo;
 import com.think.tools.dbtoword.db.impl.MysqlFindTableImpl;
 import com.think.tools.dbtoword.mode.TableFieldInfo;
 import com.think.tools.dbtoword.mode.TablesInfo;
